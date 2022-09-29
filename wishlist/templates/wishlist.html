@@ -1,29 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h5>Nama: </h5>
-<p>{{nama}}</p>
+<nav class="navbar" style="background-color: #ffe6e6;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Welcome, {{nama}} &#128075</a>
+      <button type="button" class="btn btn-light"><a href="{% url 'wishlist:logout' %}"><img src="https://cdn-icons-png.flaticon.com/24/1828/1828427.png"></a></button>
+    </div>
+  </nav>  
 
-<table>
-    <tr>
-    <th>Nama Barang</th>
-    <th>Harga Barang</th>
-    <th>Deskripsi</th>
-    </tr>
+  <div class="col-xl-10 offset-xl-1 mt-4">
+    <h2 class="text-center"><u>your wishlist</u></h2><br>
+    <table>
+        <div class="col-xl-10 offset-xl-1 mt-4">
+        <thead>
+            <thead class="table-dark">
+            <tr>
+                <th>Nama Barang</th>
+                <th>Harga Barang</th>
+                <th>Deskripsi</th>
+            </tr>
+        </thead>
 
-    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-    {% for barang in list_barang %}
-        <tr>
-            <th>{{barang.nama_barang}}</th>
-            <th>{{barang.harga_barang}}</th>
-            <th>{{barang.deskripsi}}</th>
-        </tr>
-    {% endfor %}
+        {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+        <tbody class="table-group-divider">
+        {% for barang in list_barang %}
+            <tr>
+                <td>{{barang.nama_barang}}</td>
+                <td>{{barang.harga_barang}}</td>
+                <td>{{barang.deskripsi}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </div>
+    </table>
+</div>
 
-</table>
-
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-
-<button><a href="{% url 'wishlist:logout' %}">Logout</a></button>
+<p class="text-center">sesi terakhir login: {{ last_login }}</p>
 
 {% endblock content %}
