@@ -3,44 +3,68 @@
 {% block content %}
 <nav class="navbar" style="background-color: #ffe6e6;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Welcome, {{nama}} &#128075</a>
-      <button type="button" class="btn btn-light"><a href="{% url 'wishlist:logout' %}"><img src="https://cdn-icons-png.flaticon.com/24/1828/1828427.png"></a></button>
+        <a class="navbar-brand" href="#">Welcome, {{nama}} &#128075</a>
+        <button type="button" class="btn btn-light"><a href="{% url 'wishlist:logout' %}"><img
+                    src="https://cdn-icons-png.flaticon.com/24/1828/1828427.png"></a></button>
     </div>
-  </nav>  
+</nav>
 
-  <div class="col-xl-10 offset-xl-1 mt-4">
-    <h2 class="text-center"><u>your wishlist</u></h2><br>
-    <table id="wishlist-ajax">
-        <thead class="thead-dark">
-            <tr>
-                <th>Nama Barang</th>
-                <th>Harga Barang</th>
-                <th>Deskripsi</th>
-            </tr>
-        </thead>
+<body>
+    <div class="col-xl-10 offset-xl-1 mt-4">
+        <h2 class="text-center"><u>your wishlist</u></h2><br>
+        <table id="wishlist-ajax">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nama Barang</th>
+                    <th>Harga Barang</th>
+                    <th>Deskripsi</th>
+                </tr>
+            </thead>
     </div>
     </table>
-</div>
+    </div>
 
+    <div class="col-xl-10 offset-xl-1 mt-4">
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="formGroupExampleInput">Nama Barang</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nama Barang">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2">Harga Barang</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Harga Barang">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput3">Deskripsi Barang</label>
+                <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Deskripsi Barang">
+            </div>
+
+            <button type="submit" class="primary-button col-xl-10 offset-xl-1 mt-4">Add to Wishlist</button>
+        </form>
+    </div>
+</body>
 <p class="text-center">sesi terakhir login: {{ last_login }}</p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-   $(document).ready(function(){
+    $(document).ready(function () {
         $.ajax({
             url: "/wishlist/json",
             success: function (results) {
                 results.map((result) => {
-                $("#wishlist-ajax").append(
-                    "<tr><td>" +
-                    result.fields.nama_barang +
-                    "</td><td>" +
-                    result.fields.harga_barang +
-                    "</td><td>" +
-                    result.fields.deskripsi +
-                    "</td></tr>")
+                    $("#wishlist-ajax").append(
+                        "<tr><td>" +
+                        result.fields.nama_barang +
+                        "</td><td>" +
+                        result.fields.harga_barang +
+                        "</td><td>" +
+                        result.fields.deskripsi +
+                        "</td></tr>")
+                });
+            }
         });
-      }});
     })
+
 
 </script>
 {% endblock content %}
